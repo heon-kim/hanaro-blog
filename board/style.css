@@ -1,0 +1,66 @@
+/* 폰트 설치를 하지 않고 사용할 수 있도록 웹 폰트 사용 */
+@font-face {
+  font-family: "Hana";
+  font-weight: 500;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.woff2")
+      format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.woff")
+      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.ttf")
+      format("truetype");
+  font-display: swap;
+}
+
+* {
+  font-family: "Hana"; /*웹 폰트 적용*/
+}
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 0.2fr 1fr;
+  padding: 1rem;
+}
+.hidden {
+  display: none;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-border {
+  border: 2px solid #008485;
+}
+
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* 반응형 설정 */
+}
+#list-section {
+  height: 100%;
+  padding: 1rem;
+  overflow-y: auto;
+  border-right: 1px solid #dee2e6;
+}
+#view-section {
+  height: 100%;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+#post-info {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+#post-info-detail {
+  display: flex;
+  gap: 15px;
+  color: rgb(148, 148, 148);
+}
