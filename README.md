@@ -1,4 +1,9 @@
 # hanaro-web
+### main
+* main1
+  1. tailwind를 이용한 간단 css
+  2. ![image](https://github.com/user-attachments/assets/ce146cf8-7180-4c7e-8933-ccae835d337c)
+
 ### login
 1. html/css
    1. 부트스트랩을 이용한 컴포넌트 사용 (버튼)
