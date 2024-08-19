@@ -3,6 +3,9 @@
 * main1
   1. tailwind를 이용한 간단 css
   2. ![image](https://github.com/user-attachments/assets/ce146cf8-7180-4c7e-8933-ccae835d337c)
+* main2
+  ![image](https://github.com/user-attachments/assets/b89bd6a9-fecf-4535-8126-6b7335a20989)
+
 
 ### login
 1. html/css
