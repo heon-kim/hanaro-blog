@@ -1,98 +1,156 @@
 class Post {
-  constructor(title, date, author, content) {
+  constructor(id, title, date, author, content) {
+    this.id = id;
     this.title = title;
     this.date = date;
     this.author = author;
     this.content = content;
   }
+
+  updateTitle(newTitle) {
+    this.title = newTitle;
+  }
+
+  updateContent(newContent) {
+    this.content = newContent;
+  }
+
+  getListItemHTML() {
+    return `
+      <tr id="${this.id}" onclick="showViewSection('${this.id}')">
+        <th scope="row">${posts.indexOf(this) + 1}</th>
+        <td>${this.title}</td>
+        <td>${this.author}</td>
+        <td>${this.date}</td>
+      </tr>
+    `;
+  }
+
+  getPostHTML() {
+    return `  <h3 id="post-title">${this.title}</h3>
+              <div id="post-info">
+                <span style="font-size: 35px">👤</span>
+                <div>
+                  <span id="post-author">${this.author}</span>
+                  <div id="post-info-detail">
+                    <span id="post-date">${this.date}</span>
+                    <span id="post-view">조회수 3</span>
+                  </div>
+                </div>
+              </div>
+
+              <p id="post-content">${this.content}</p>`;
+  }
 }
 
-const post1 = new Post(
-  "네이버 지도(v5) 임베드",
-  "2024-12-17",
-  "김채운",
-  "111Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
-);
-const post2 = new Post(
-  "제목",
-  "2024-12-16",
-  "김해원",
-  "222Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
-);
-const post3 = new Post(
-  "구글 지도 게시물에 임베드 하기",
-  "2024-12-16",
-  "박시홍",
-  "333Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
-);
-const post4 = new Post(
-  "아이폰 7 플러스",
-  "2024-05-14",
-  "박지환",
-  "444Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
-);
+const posts = [
+  new Post(
+    "post1",
+    "네이버 지도(v5) 임베드",
+    "2024-12-17",
+    "김채운",
+    "111Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
+  ),
+  new Post(
+    "post2",
+    "제목",
+    "2024-12-16",
+    "김해원",
+    "222Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
+  ),
+  new Post(
+    "post3",
+    "구글 지도 게시물에 임베드 하기",
+    "2024-12-16",
+    "박시홍",
+    "333Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
+  ),
+  new Post(
+    "post4",
+    "아이폰 7 플러스",
+    "2024-05-14",
+    "박지환",
+    "444Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa autem eius illum earum excepturi asperiores fuga ratione, ipsam repudiandae tenetur repellat cupiditate inventore odio quasi accusantium enim aut necessitatibus laudantium."
+  ),
+];
 
-let activePostId;
-const posts = { post1, post2, post3, post4 };
+let activePostId = null;
 
-window.onload = () => {
-  // 페이지 로드 시 게시글 목록 초기화
-  updateList();
-};
+window.onload = updateList;
+
+function getElement(id) {
+  return document.getElementById(id);
+}
 
 function updateList() {
-  // 게시글 목록 업데이트
-  Object.keys(posts).forEach((postId, index) => {
-    document.getElementById(postId).innerHTML = `
-    <th scope="row">${index + 1}</th>
-    <td>${posts[postId].title}</td>
-    <td>${posts[postId].author}</td>
-    <td>${posts[postId].date}</td>
-  `;
-  });
+  const listContainer = getElement("posts-list");
+  listContainer.innerHTML = posts
+    .map((post) => post.getListItemHTML())
+    .join("");
+}
+
+function getPostById(postId) {
+  return posts.find((post) => post.id === postId);
 }
 
 function showViewSection(postId) {
-  // 게시글 클릭 시 이벤트
   if (activePostId) {
-    document.getElementById(activePostId).classList.remove("table-active");
+    getElement(activePostId).classList.remove("table-active");
   }
+
   activePostId = postId;
-  document.getElementById(postId).classList.add("table-active");
-  document.getElementById("view-section").classList.remove("hidden");
-  document.getElementById("post-title").innerText = posts[postId].title;
-  document.getElementById("post-date").innerText = posts[postId].date;
-  document.getElementById("post-author").innerText = posts[postId].author;
-  document.getElementById("post-content").innerText = posts[postId].content;
+  const post = getPostById(postId);
+
+  if (post) {
+    getElement(postId).classList.add("table-active");
+    getElement("post-body").innerText = post.getPostHTML();
+    getElement("view-section").classList.remove("hidden");
+  }
 }
 
 function populateEditModal() {
-  const title = document.getElementById("post-title").innerText;
-  const content = document.getElementById("post-content").innerText;
+  if (!activePostId) return;
 
-  document.getElementById("edit-title").value = title;
-  document.getElementById("edit-content").value = content;
+  const post = getPostById(activePostId);
+
+  if (post) {
+    getElement("edit-title").value = post.title;
+    getElement("edit-content").value = post.content;
+  }
 }
 
 function deletePost() {
-  // 삭제 로직 추가
-  document.getElementById("view-section").classList.add("hidden");
-  document.getElementById(activePostId).innerHTML = "";
-  delete posts[activePostId];
-  alert("게시글이 삭제되었습니다.");
-  updateList();
+  if (!activePostId) return;
+
+  if (confirm("정말로 게시글을 삭제하시겠습니까?")) {
+    getElement("view-section").classList.add("hidden");
+    getElement(activePostId).remove();
+    const postIndex = posts.findIndex((post) => post.id === activePostId);
+
+    if (postIndex !== -1) {
+      posts.splice(postIndex, 1);
+      activePostId = null;
+      alert("게시글이 삭제되었습니다.");
+      updateList();
+    }
+  }
 }
 
 function saveChanges() {
-  // 저장 로직 추가
-  const newTitle = document.getElementById("edit-title").value;
-  const newContent = document.getElementById("edit-content").value;
+  if (!activePostId) return;
 
-  document.getElementById("post-title").innerText = newTitle;
-  document.getElementById("post-content").innerText = newContent;
+  const newTitle = getElement("edit-title").value;
+  const newContent = getElement("edit-content").value;
 
-  posts[activePostId].title = newTitle;
-  posts[activePostId].content = newContent;
+  const post = getPostById(activePostId);
 
-  alert("변경 사항이 저장되었습니다.");
+  if (post) {
+    post.updateTitle(newTitle);
+    post.updateContent(newContent);
+
+    getElement("post-title").innerText = newTitle;
+    getElement("post-content").innerText = newContent;
+
+    alert("변경 사항이 저장되었습니다.");
+  }
 }
