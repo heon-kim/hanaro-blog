@@ -1,8 +1,8 @@
 const itAdd = add();
 
 function* add() {
-  const x = yield 1;
-  const y = yield 1;
+  const x = yield "첫번째";
+  const y = yield "두번째";
   return x + y;
 }
 
