@@ -1,6 +1,6 @@
 class ArrayList {
   constructor(array = []) {
-    this.list = ArrayList.arrayToList(array);
+    this.head = ArrayList.arrayToList(array);
   }
 
   static arrayToList(array) {
@@ -22,36 +22,36 @@ class ArrayList {
 
   add(value, index = null) {
     if (index === null || index >= this.size()) {
-      this.list = { value, rest: this.list };
+      this.head = { value, rest: this.head };
     } else {
-      let node = this.list;
-      let i = 0;
-      while (i < index - 1 && node.rest) {
-        node = node.rest;
-        i++;
+      let current = this.head;
+      let currentIndex = 0;
+      while (currentIndex < index - 1 && current.rest) {
+        current = current.rest;
+        currentIndex++;
       }
-      node.rest = { value, rest: node.rest };
+      current.rest = { value, rest: current.rest };
     }
   }
 
   remove(index) {
     if (index === 0) {
-      this.list = this.list.rest;
+      this.head = this.head.rest;
     } else {
-      let node = this.list;
-      let i = 0;
-      while (i < index - 1 && node.rest) {
-        node = node.rest;
+      let current = this.head;
+      let currentIndex = 0;
+      while (currentIndex < index - 1 && current.rest) {
+        current = current.rest;
         i++;
       }
-      if (node.rest) {
-        node.rest = node.rest.rest;
+      if (current.rest) {
+        current.rest = current.rest.rest;
       }
     }
   }
 
   get(index) {
-    let node = this.list;
+    let node = this.head;
     let i = 0;
     while (i < index && node) {
       node = node.rest;
@@ -61,7 +61,7 @@ class ArrayList {
   }
 
   set(index, value) {
-    let node = this.list;
+    let node = this.head;
     let i = 0;
     while (i < index && node) {
       node = node.rest;
@@ -73,7 +73,7 @@ class ArrayList {
   }
 
   size() {
-    let node = this.list;
+    let node = this.head;
     let count = 0;
     while (node) {
       count++;
@@ -83,7 +83,7 @@ class ArrayList {
   }
 
   indexOf(value) {
-    let node = this.list;
+    let node = this.head;
     let index = 0;
     while (node) {
       if (node.value === value) return index;
@@ -98,27 +98,27 @@ class ArrayList {
   }
 
   isEmpty() {
-    return this.list === null;
+    return this.head === null;
   }
 
   peek() {
-    return this.list ? this.list.value : undefined;
+    return this.head ? this.head.value : undefined;
   }
 
   toArray() {
-    return ArrayList.listToArray(this.list);
+    return ArrayList.listToArray(this.head);
   }
 
   clear() {
-    this.list = null;
+    this.head = null;
   }
 
   print() {
-    console.log(this.list);
+    console.log(this.head);
   }
 
   *iterator() {
-    let node = this.list;
+    let node = this.head;
     while (node) {
       yield node.value;
       node = node.rest;
