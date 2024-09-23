@@ -4,7 +4,6 @@ import Profile from "./Profile";
 interface User {
   id: number;
   name: string;
-  age: number;
 }
 
 interface CartItem {
@@ -20,16 +19,17 @@ interface Session {
 
 interface MyProps {
   session: Session;
+  login: (id: number, name: string) => void;
   logout: () => void;
 }
 
-const My: React.FC<MyProps> = ({ session, logout }) => {
+const My: React.FC<MyProps> = ({ session, login, logout }) => {
   return (
     <div className="my-container">
       {session.loginUser ? (
         <Profile user={session.loginUser} logout={logout}></Profile>
       ) : (
-        <Login />
+        <Login login={login} />
       )}
       <ul className="cart-list">
         {session.cart.map((item) => (

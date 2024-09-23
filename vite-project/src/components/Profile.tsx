@@ -3,7 +3,6 @@ import React from "react";
 interface User {
   id: number;
   name: string;
-  age: number;
 }
 
 interface ProfileProps {
@@ -14,11 +13,9 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({ user, logout }) => {
   return (
     <div className="profile-container">
-      <h1>
-        Hello, {user.name}! <span className="age">({user.age})</span>
-      </h1>
+      <h1>Hello, {user.name}!</h1>
       <span className="user-name">
-        {user.name} <span className="status">logined</span>
+        {user.name} <span className="status">logged in</span>
       </span>
       <button onClick={logout} className="logout-button">
         SignOut

@@ -5,7 +5,6 @@ import "./App.css";
 interface User {
   id: number;
   name: string;
-  age: number;
 }
 
 interface CartItem {
@@ -20,7 +19,7 @@ interface Session {
 }
 
 const SampleSession: Session = {
-  loginUser: { id: 1, name: "Hong", age: 34 },
+  loginUser: null,
   cart: [
     { id: 100, name: "라면", price: 3000 },
     { id: 101, name: "컵라면", price: 2000 },
@@ -31,6 +30,13 @@ const SampleSession: Session = {
 function App() {
   const [session, setSession] = useState(SampleSession);
 
+  const login = (id: number, name: string) => {
+    setSession({
+      ...session,
+      loginUser: { id, name },
+    });
+  };
+
   const logout = () => {
     setSession({
       ...session,
@@ -40,7 +46,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <My session={session} logout={logout}></My>
+      <My session={session} login={login} logout={logout}></My>
     </div>
   );
 }
