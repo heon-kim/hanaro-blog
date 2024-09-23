@@ -21,9 +21,10 @@ interface MyProps {
   session: Session;
   login: (id: number, name: string) => void;
   logout: () => void;
+  removeCartItem: (id: number) => void;
 }
 
-const My: React.FC<MyProps> = ({ session, login, logout }) => {
+const My: React.FC<MyProps> = ({ session, login, logout, removeCartItem }) => {
   return (
     <div className="my-container">
       {session.loginUser ? (
@@ -35,6 +36,7 @@ const My: React.FC<MyProps> = ({ session, login, logout }) => {
         {session.cart.map((item) => (
           <li key={item.id} className="cart-item">
             {item.name} ({item.price.toLocaleString()}원)
+            <button onClick={() => removeCartItem(item.id)}>삭제</button>
           </li>
         ))}
       </ul>

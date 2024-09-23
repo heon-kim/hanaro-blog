@@ -44,9 +44,21 @@ function App() {
     });
   };
 
+  const removeCartItem = (id: number) => {
+    setSession({
+      ...session,
+      cart: session.cart.filter((item) => item.id !== id),
+    });
+  };
+
   return (
     <div className="app-container">
-      <My session={session} login={login} logout={logout}></My>
+      <My
+        session={session}
+        login={login}
+        logout={logout}
+        removeCartItem={removeCartItem}
+      ></My>
     </div>
   );
 }
