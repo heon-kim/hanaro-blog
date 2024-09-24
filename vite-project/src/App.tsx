@@ -1,5 +1,7 @@
 import { useState } from "react";
 import My from "./components/My";
+import FocusInput from "./components/FocusInput";
+import PreventTyping from "./components/StopTyping";
 import "./App.css";
 
 interface User {
@@ -53,6 +55,8 @@ function App() {
 
   return (
     <div className="app-container">
+      <FocusInput></FocusInput>
+      <PreventTyping></PreventTyping>
       <My
         session={session}
         login={login}
