@@ -7,7 +7,7 @@ function PreventTyping() {
   const handleInput = (e: React.FormEvent) => {
     // 여기에 input 요소의 입력을 방지하고 "Stop typing!" 메시지를 표시하세요.
     if (myInputRef.current) {
-      alert("Stop typing!");
+      myInputRef.current.value = "Stop Typing!";
       e.preventDefault();
     }
   };

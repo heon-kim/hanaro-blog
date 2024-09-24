@@ -1,8 +1,13 @@
 import { useState } from "react";
 import My from "./components/My";
+import MouseOverComponent from "./components/MouseHandle";
+import MoveBox from "./components/MoveBox";
+import Timer from "./components/Timer";
+import AnimatedBox from "./components/AnimatedBox";
 import FocusInput from "./components/FocusInput";
 import PreventTyping from "./components/StopTyping";
 import "./App.css";
+import TextInputColorChanger from "./components/ColorChange";
 
 interface User {
   id: number;
@@ -53,16 +58,31 @@ function App() {
     });
   };
 
+  const addCartItem = (name: string, price: number) => {
+    const id = session.cart.length + 1;
+    const newItem: CartItem = { id, name, price };
+    setSession({
+      ...session,
+      cart: [...session.cart, newItem],
+    });
+  };
+
   return (
     <div className="app-container">
-      <FocusInput></FocusInput>
-      <PreventTyping></PreventTyping>
       <My
         session={session}
         login={login}
         logout={logout}
         removeCartItem={removeCartItem}
+        addCartItem={addCartItem}
       ></My>
+      <MouseOverComponent></MouseOverComponent>
+      <TextInputColorChanger></TextInputColorChanger>
+      <MoveBox></MoveBox>
+      <Timer></Timer>
+      <AnimatedBox></AnimatedBox>
+      <FocusInput></FocusInput>
+      <PreventTyping></PreventTyping>
     </div>
   );
 }

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import Login from "./Login";
 import Profile from "./Profile";
+import Add from "./AddItem";
 interface User {
   id: number;
   name: string;
@@ -22,9 +23,16 @@ interface MyProps {
   login: (id: number, name: string) => void;
   logout: () => void;
   removeCartItem: (id: number) => void;
+  addCartItem: (name: string, price: number) => void;
 }
 
-const My: React.FC<MyProps> = ({ session, login, logout, removeCartItem }) => {
+const My: React.FC<MyProps> = ({
+  session,
+  login,
+  logout,
+  removeCartItem,
+  addCartItem,
+}) => {
   return (
     <div className="my-container">
       {session.loginUser ? (
@@ -32,6 +40,7 @@ const My: React.FC<MyProps> = ({ session, login, logout, removeCartItem }) => {
       ) : (
         <Login login={login} />
       )}
+      <Add addCartItem={addCartItem} />
       <ul className="cart-list">
         {session.cart.map((item) => (
           <li key={item.id} className="cart-item">
