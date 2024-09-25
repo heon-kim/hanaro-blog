@@ -2,15 +2,16 @@ import React, { useState } from "react";
 
 interface LoginProps {
   login: (id: number, name: string) => void;
+  nameInputRef: React.RefObject<HTMLInputElement>;
 }
 
-const Login: React.FC<LoginProps> = ({ login }) => {
+const Login: React.FC<LoginProps> = ({ login, nameInputRef }) => {
   const [id, setId] = useState<number | "">("");
   const [name, setName] = useState<string>("");
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
-    if (id && name) {
+    if (id) {
       login(Number(id), name);
     }
   };
@@ -38,6 +39,7 @@ const Login: React.FC<LoginProps> = ({ login }) => {
             </label>
             <input
               type="text"
+              ref={nameInputRef}
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}

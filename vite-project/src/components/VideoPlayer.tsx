@@ -1,5 +1,6 @@
 import { useRef } from "react";
 // import "./App.css";
+
 function VideoPlayer() {
   // 여기에 useRef 훅을 사용하여 video 요소를 참조할 변수를 선언하세요.
   const videoRef = useRef<HTMLVideoElement>(null);

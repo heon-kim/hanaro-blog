@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import Login from "./Login";
 import Profile from "./Profile";
 import Add from "./AddItem";
@@ -24,6 +24,7 @@ interface MyProps {
   logout: () => void;
   removeCartItem: (id: number) => void;
   addCartItem: (name: string, price: number) => void;
+  nameInputRef: React.RefObject<HTMLInputElement>;
 }
 
 const My: React.FC<MyProps> = ({
@@ -32,13 +33,14 @@ const My: React.FC<MyProps> = ({
   logout,
   removeCartItem,
   addCartItem,
+  nameInputRef,
 }) => {
   return (
     <div className="my-container">
       {session.loginUser ? (
         <Profile user={session.loginUser} logout={logout}></Profile>
       ) : (
-        <Login login={login} />
+        <Login login={login} nameInputRef={nameInputRef} />
       )}
       <Add addCartItem={addCartItem} />
       <ul className="cart-list">
