@@ -1,4 +1,5 @@
 import React from "react";
+import { useSession } from "../context/SessionContext";
 
 interface User {
   id: number;
@@ -7,10 +8,11 @@ interface User {
 
 interface ProfileProps {
   user: User;
-  logout: () => void;
 }
 
-const Profile: React.FC<ProfileProps> = ({ user, logout }) => {
+const Profile: React.FC<ProfileProps> = ({ user }) => {
+  const { logout } = useSession();
+
   return (
     <div className="profile-container">
       <h1>Hello, {user.name}!</h1>

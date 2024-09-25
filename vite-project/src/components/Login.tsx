@@ -1,13 +1,10 @@
 import React, { useState } from "react";
+import { useSession } from "../context/SessionContext";
 
-interface LoginProps {
-  login: (id: number, name: string) => void;
-  nameInputRef: React.RefObject<HTMLInputElement>;
-}
-
-const Login: React.FC<LoginProps> = ({ login, nameInputRef }) => {
+const Login = () => {
   const [id, setId] = useState<number | "">("");
   const [name, setName] = useState<string>("");
+  const { login, nameInputRef } = useSession();
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
