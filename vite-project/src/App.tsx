@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import My from "./components/My";
+import Theme from "./components/Theme";
+import TextArea from "./components/TextArea";
+import VideoHandler from "./components/VideoHandler";
+import ModalParentComponent from "./components/Modal";
 import MouseOverComponent from "./components/MouseHandle";
 import MoveBox from "./components/MoveBox";
 import Timer from "./components/Timer";
@@ -8,6 +12,7 @@ import FocusInput from "./components/FocusInput";
 import PreventTyping from "./components/StopTyping";
 import "./App.css";
 import TextInputColorChanger from "./components/ColorChange";
+import Language from "./components/Language";
 
 interface User {
   id: number;
@@ -36,8 +41,15 @@ const SampleSession: Session = {
 
 function App() {
   const [session, setSession] = useState(SampleSession);
-
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const login = (id: number, name: string) => {
+    console.log("");
+    if (!name) {
+      alert("이름을 입력해주세요");
+      nameInputRef.current?.focus();
+      return;
+    }
+
     setSession({
       ...session,
       loginUser: { id, name },
@@ -75,7 +87,13 @@ function App() {
         logout={logout}
         removeCartItem={removeCartItem}
         addCartItem={addCartItem}
+        nameInputRef={nameInputRef}
       ></My>
+      <Language></Language>
+      <Theme></Theme>
+      <TextArea></TextArea>
+      <VideoHandler></VideoHandler>
+      <ModalParentComponent></ModalParentComponent>
       <MouseOverComponent></MouseOverComponent>
       <TextInputColorChanger></TextInputColorChanger>
       <MoveBox></MoveBox>
