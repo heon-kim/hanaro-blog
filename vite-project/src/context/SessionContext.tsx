@@ -27,6 +27,7 @@ interface SessionContextType {
   login: (id: number, name: string) => void;
   logout: () => void;
   addCartItem: (name: string, price: number) => void;
+  updateCartItem: (id: number, name: string, price: number) => void;
   removeCartItem: (itemId: number) => void;
   nameInputRef: React.RefObject<HTMLInputElement>;
 }
@@ -86,6 +87,15 @@ export const SessionProvider: React.FC<{ children: ReactNode }> = ({
     });
   };
 
+  const updateCartItem = (id: number, name: string, price: number) => {
+    setSession({
+      ...session,
+      cart: session.cart.map((item) =>
+        item.id === id ? { ...item, name: name, price: Number(price) } : item,
+      ),
+    });
+  };
+
   const removeCartItem = (itemId: number) => {
     setSession({
       ...session,
@@ -100,6 +110,7 @@ export const SessionProvider: React.FC<{ children: ReactNode }> = ({
         login,
         logout,
         addCartItem,
+        updateCartItem,
         removeCartItem,
         nameInputRef,
       }}
