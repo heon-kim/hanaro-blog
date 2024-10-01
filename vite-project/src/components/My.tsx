@@ -7,7 +7,8 @@ import EditMode from "./EditItem";
 import { useSession } from "../context/SessionContext";
 
 const My = () => {
-  const { session, addCartItem, updateCartItem, removeCartItem } = useSession();
+  const { session, login, addCartItem, updateCartItem, removeCartItem } =
+    useSession();
   const { loginUser, cart } = session;
 
   const [editId, setEditId] = useState<number | null>(null);
@@ -39,7 +40,7 @@ const My = () => {
 
   return (
     <div className="my-container">
-      {loginUser ? <Profile /> : <Login />}
+      {loginUser ? <Profile /> : <Login login={login} />}
       <Add addCartItem={addCartItem} />
       <ul className="cart-list">
         {cart.map((item) => (
