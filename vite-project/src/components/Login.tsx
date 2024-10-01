@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { useSession } from "../context/SessionContext";
+import React, { useState, memo } from "react";
+// import { useSession } from "../context/SessionContext";
 
-const Login = () => {
+interface LoginProps {
+  login: (id: number, name: string) => void;
+}
+
+const Login: React.FC<LoginProps> = memo(({ login }) => {
   const [id, setId] = useState<number | "">("");
   const [name, setName] = useState<string>("");
-  const { login, nameInputRef } = useSession();
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
@@ -36,7 +39,6 @@ const Login = () => {
             </label>
             <input
               type="text"
-              ref={nameInputRef}
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -50,6 +52,6 @@ const Login = () => {
       </form>
     </div>
   );
-};
+});
 
 export default Login;

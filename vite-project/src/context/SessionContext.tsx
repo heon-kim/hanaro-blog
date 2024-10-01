@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  ReactNode,
-  useRef,
-} from "react";
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
 interface User {
   id: number;
@@ -29,7 +23,6 @@ interface SessionContextType {
   addCartItem: (name: string, price: number) => void;
   updateCartItem: (id: number, name: string, price: number) => void;
   removeCartItem: (itemId: number) => void;
-  nameInputRef: React.RefObject<HTMLInputElement>;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
@@ -54,12 +47,9 @@ export const SessionProvider: React.FC<{ children: ReactNode }> = ({
     ],
   });
 
-  const nameInputRef = useRef<HTMLInputElement>(null);
-
   const login = (id: number, name: string) => {
     if (!name) {
       alert("이름을 입력해주세요");
-      nameInputRef.current?.focus();
       return;
     }
     setSession({
@@ -112,7 +102,6 @@ export const SessionProvider: React.FC<{ children: ReactNode }> = ({
         addCartItem,
         updateCartItem,
         removeCartItem,
-        nameInputRef,
       }}
     >
       {children}
