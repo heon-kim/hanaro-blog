@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-react": "^7.36.1"
   }
