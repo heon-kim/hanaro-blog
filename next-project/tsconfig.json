@@ -1,4 +1,5 @@
 {
+  "target": "es2022",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
